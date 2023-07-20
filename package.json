@@ -19,5 +19,9 @@
   },
   "devDependencies": {
     "chalk": "4"
-  }
+  },
+  "files": [
+    "index.js",
+    "pmlist.js"
+  ]
 }
