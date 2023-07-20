@@ -1,14 +1,16 @@
 {
-  "name": "version-validate",
+  "name": "nover",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "bin": {
+    "nover": "index.js"
+  },
   "scripts": {
-    "prestart": "node index.js",
-    "start": "npm info node versions",
+    "start": "nover && npm info node versions",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "guoshi",
   "packageManager": "yarn@1.22.19",
   "license": "ISC",
   "dependencies": {
