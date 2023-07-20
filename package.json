@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prestart": "node index.js",
+    "start": "npm info node versions",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
