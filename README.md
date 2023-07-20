@@ -1,46 +1,46 @@
-## nover
+## m-nover
 校验执行命令时的node版本和项目实际使用的node版本是否一致
 
 ## 安装
 ### npm
-``` npm install nover -D ``` 
+``` npm install m-nover -D ``` 
 ### yarn
-``` yarn add -D nover ```
+``` yarn add -D m-nover ```
 ### pnpm
-``` pnpm add -D nover ```
+``` pnpm add -D m-nover ```
 
 ## 使用方式
-nover 目前只提供了bin文件，因此可以在 package.json 中的 npm scripts 脚本中使用。
+m-nover 目前只提供了bin文件，因此可以在 package.json 中的 npm scripts 脚本中使用。
 1. scripts 使用方式
    1. 通过 && 组合要执行的命令  
      ```javascript
        "scripts": {
-         "start": "nover && other command",
-         "build": "nover && other command"
+         "start": "m-nover && other command",
+         "build": "m-nover && other command"
        }
      ```
-     当执行 ```npm run start``` 或者 ```npm run build``` 时，nover 会首先校验当前执行命令使用的 node 版本和项目实际需要的版本是否一致。  
+     当执行 ```npm run start``` 或者 ```npm run build``` 时，m-nover 会首先校验当前执行命令使用的 node 版本和项目实际需要的版本是否一致。  
      **如果不一致，会提示错误信息并阻止后续命令执行。**  
      **如果一致，则会继续执行后续的命令。**  
    2. 使用 Pre & Post Scripts
     ```javascript
         "scripts": {
-          "prestart": "nover",
+          "prestart": "m-nover",
           "start": "other command",
-          "prebuild": "nover",
+          "prebuild": "m-nover",
           "build": "other command"
         }
      ```
     执行效果和上面的方式是一致的，比较好的一点是不用改动原有的命令。关于 **Pre & Post Scripts** 的使用方式，可以参考：[npm scripts](https://docs.npmjs.com/cli/v9/using-npm/scripts)
 
 ## 设置目标 node 版本
-nover 获取目标 node 版本的来源有两个：package.json 中的 [engines](https://docs.npmjs.com/cli/v9/configuring-npm/package-json/#engines) 和 脚本参数(arguments)。
+m-nover 获取目标 node 版本的来源有两个：package.json 中的 [engines](https://docs.npmjs.com/cli/v9/configuring-npm/package-json/#engines) 和 脚本参数(arguments)。
 
 **其中 脚本参数的优先级要高于 engines**。  
 例如：
 ```javascript 
   "scripts": {
-    "prestart": "nover -t ^18"
+    "prestart": "m-nover -t ^18"
   }
  or
   "engines": { "node": "^16" }

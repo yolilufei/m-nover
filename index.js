@@ -13,7 +13,7 @@ const pkgInfo = require(path.join(rootDir, "package.json"));
 /**
  * @description 只获取第一个脚本参数，默认第一个参数即是 node version
  *
- *  例如：nover -t ^18 ~16 只会获取 18 作为目标参数
+ *  例如：m-nover -t ^18 ~16 只会获取 18 作为目标参数
  *
  * 参数可以是任意符合规范的 semantic version, 可以参考 @link https://github.com/npm/node-semver#versions
  */
@@ -38,7 +38,7 @@ const getVersionFromPkgInfo = () => {
  *
  * 其中 脚本参数的优先级要高于 engines，例如：
  *
- * "prestart": nover -t ^18
+ * "prestart": m-nover -t ^18
  *
  * "engines": { "node": ^16 }
  *
