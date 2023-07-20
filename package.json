@@ -10,7 +10,7 @@
   "scripts": {
     "test": "node index.js && npm info node versions"
   },
-  "author": "guoshi",
+  "author": "guoshi11",
   "homepage": "https://github.com/yolilufei/node-version-validate.git",
   "packageManager": "yarn@1.22.19",
   "license": "ISC",
@@ -18,7 +18,7 @@
     "semver": "^7.5.4"
   },
   "devDependencies": {
-    "chalk": "4"
+    "chalk": "4.1.2"
   },
   "files": [
     "index.js",
