@@ -1,16 +1,17 @@
 {
   "name": "nover",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "校验执行命令时的node版本和项目实际使用的node版本是否一致",
+  "keywords": ["node version", "nover"],
   "main": "index.js",
   "bin": {
     "nover": "index.js"
   },
   "scripts": {
-    "start": "nover && npm info node versions",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node index.js && npm info node versions"
   },
   "author": "guoshi",
+  "homepage": "https://github.com/yolilufei/node-version-validate.git",
   "packageManager": "yarn@1.22.19",
   "license": "ISC",
   "dependencies": {

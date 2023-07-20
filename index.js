@@ -64,7 +64,6 @@ const compareCurrentAndTarget = () => {
     process.exit(1);
   }
   const matched = semver.satisfies(current, range);
-  console.log("valid", current, range, matched);
   if (!matched) {
     console.log(
       chalk.red("当前 node 版本与目标 node 版本不一致，请切换当前 node 版本")
