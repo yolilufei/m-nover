@@ -21,8 +21,9 @@ m-nover 目前只提供了bin文件，因此可以在 package.json 中的 npm sc
      ```
      当执行 ```npm run start``` 或者 ```npm run build``` 时，m-nover 会首先校验当前执行命令使用的 node 版本和项目实际需要的版本是否一致。  
      **如果不一致，会提示错误信息并阻止后续命令执行。**  
-     **如果一致，则会继续执行后续的命令。**  
-   2. 使用 Pre & Post Scripts
+     **如果一致，则会继续执行后续的命令。** 
+
+2. 使用 Pre & Post Scripts
     ```javascript
         "scripts": {
           "prestart": "m-nover",
@@ -32,6 +33,10 @@ m-nover 目前只提供了bin文件，因此可以在 package.json 中的 npm sc
         }
      ```
     执行效果和上面的方式是一致的，比较好的一点是不用改动原有的命令。关于 **Pre & Post Scripts** 的使用方式，可以参考：[npm scripts](https://docs.npmjs.com/cli/v9/using-npm/scripts)
+
+## 参数说明
+
+```-t```: target 目标版本, 后跟项目运行实际需要的 node 版本
 
 ## 设置目标 node 版本
 m-nover 获取目标 node 版本的来源有两个：package.json 中的 [engines](https://docs.npmjs.com/cli/v9/configuring-npm/package-json/#engines) 和 脚本参数(arguments)。

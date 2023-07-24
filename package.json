@@ -11,16 +11,16 @@
     "m-nover": "index.js"
   },
   "scripts": {
-    "test": "node index.js && npm info node versions"
+    "test:no-argument": "node index.js && npm info node versions",
+    "test:exact-argument": "node index.js -t 12 && npm info node versions",
+    "test:semver-argument": "node index.js -t ~19.1 && npm info node versions"
   },
   "author": "guoshi11",
   "homepage": "https://github.com/yolilufei/node-version-validate.git",
   "packageManager": "yarn@1.22.19",
   "license": "ISC",
   "dependencies": {
-    "semver": "^7.5.4"
-  },
-  "devDependencies": {
+    "semver": "^7.5.4",
     "chalk": "4.1.2"
   },
   "files": [
