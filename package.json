@@ -1,6 +1,6 @@
 {
   "name": "m-nover",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "校验执行命令时的node版本和项目实际使用的node版本是否一致",
   "keywords": [
     "node version",
