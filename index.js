@@ -75,30 +75,36 @@ const compareCurrentAndTarget = () => {
   console.log(chalk.green("当前 node 版本与目标 node 版本一致"));
   process.exit(0);
 };
-getTargetVersion();
-// const {
-//     PKG_MANAGER_NPM,
-//     PKG_MANAGER_YARN,
-//     PKG_MANAGER_PNPM,
-//     existLockFile
-//   } = require("./pmlist");
-// let pkgManager = "npm";
+// getTargetVersion();
+const {
+    PKG_MANAGER_NPM,
+    PKG_MANAGER_YARN,
+    PKG_MANAGER_PNPM,
+    existLockFile
+  } = require("./pmlist");
+const detectedWhichPMInuse = async () => {
+  let pkgManager = "";
+  if (pkgInfo.packageManager) {
+    pkgManager = [PKG_MANAGER_NPM, PKG_MANAGER_YARN, PKG_MANAGER_PNPM].find(pm => pkgInfo.packageManager.startsWith(pm));
+  }
+  if (await existLockFile('package-lock.json')) {
+    pkgManager = PKG_MANAGER_NPM;
+  }
+  if (await existLockFile('yarn.lock')) {
+    pkgManager = PKG_MANAGER_YARN;
+  }
+  if (await existLockFile('pnpm-lock.yaml')) {
+    pkgManager = PKG_MANAGER_PNPM;
+  }
 
+  const current_exec_pm = process.env.npm_execpath;
+  if (!pkgManager || current_exec_pm.indexOf(pkgManager) > -1) {
+    process.exit(0);
+  } else {
+    console.log(chalk.red('当前运行的包管理器和项目使用的包管理器不一致'));
+    console.log("项目使用的包管理器: ",  chalk.yellow(pkgManager));
+    process.exit(1);
+  }
+};
 
-
-// const detectedWhichPMInuse = async () => {
-//   if (pkgInfo.packageManager) {
-//     pkgManager = [PKG_MANAGER_NPM, PKG_MANAGER_YARN, PKG_MANAGER_PNPM].find(pm => pkgInfo.packageManager.startsWith(pm));
-//   }
-//   if (await existLockFile('package-lock.json')) {
-//     pkgManager = PKG_MANAGER_NPM;
-//   }
-//   if (await existLockFile('yarn.lock')) {
-//     pkgManager = PKG_MANAGER_YARN;
-//   }
-//   if (await existLockFile('pnpm-lock.yaml')) {
-//     pkgManager = PKG_MANAGER_PNPM;
-//   }
-// };
-
-// detectedWhichPMInuse();
+detectedWhichPMInuse();
