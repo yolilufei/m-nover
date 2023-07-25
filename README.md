@@ -1,6 +1,9 @@
 ## m-nover
-校验执行命令时的node版本和项目实际使用的node版本是否一致
+- 校验执行命令时的node版本和项目实际使用的node版本是否一致
+- 校验执行命令时的包管理器和项目实际使用的包管理器是否一致
 
+## 使用场景
+如果你同时需要维护多个项目，项目运行要求的 node 版本 和 包管理器存在差异时，推荐使用。
 ## 安装
 ### npm
 ``` npm install m-nover -D ``` 
@@ -10,7 +13,7 @@
 ``` pnpm add -D m-nover ```
 
 ## 使用方式
-m-nover 目前只提供了bin文件，因此可以在 package.json 中的 npm scripts 脚本中使用。
+m-nover 目前只提供了 bin 文件，因此可以在 package.json 中的 npm scripts 脚本中使用。
 1. scripts 使用方式
    1. 通过 && 组合要执行的命令  
      ```javascript
@@ -23,7 +26,7 @@ m-nover 目前只提供了bin文件，因此可以在 package.json 中的 npm sc
      **如果不一致，会提示错误信息并阻止后续命令执行。**  
      **如果一致，则会继续执行后续的命令。** 
 
-2. 使用 Pre & Post Scripts
+   2. 使用 Pre & Post Scripts
     ```javascript
         "scripts": {
           "prestart": "m-nover",
@@ -51,3 +54,5 @@ m-nover 获取目标 node 版本的来源有两个：package.json 中的 [engine
   "engines": { "node": "^16" }
 ```
 目标 node 版本 会使用 18 作为实际的 node 版本。如果没有脚本参数，会默认使用 engines 的设置作为目标版本
+
+## 关于 engine-strict

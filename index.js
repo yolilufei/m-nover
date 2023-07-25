@@ -75,13 +75,17 @@ const compareCurrentAndTarget = () => {
   console.log(chalk.green("当前 node 版本与目标 node 版本一致"));
   process.exit(0);
 };
-// getTargetVersion();
+getTargetVersion();
 const {
     PKG_MANAGER_NPM,
     PKG_MANAGER_YARN,
     PKG_MANAGER_PNPM,
     existLockFile
   } = require("./pmlist");
+/**
+ * @description 检查当前命令实现的包管理器，目前包含了 npm、yarn、pnpm 三种
+ * 注意：如果项目之前是通过 pnpm 管理的，因为pnpm本身支持包管理器的判断，因此可以忽略包管理器的检查功能
+ */
 const detectedWhichPMInuse = async () => {
   let pkgManager = "";
   if (pkgInfo.packageManager) {
