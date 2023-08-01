@@ -3,6 +3,9 @@
 const semver = require("semver");
 const chalk = require("chalk");
 const path = require("path");
+const detectedWhichPMInuse = require('./validate_pm');
+const commandList = require("./utils/commandList");
+const { validCommandArgument, hasCommand } = require("./utils/hasCommand");
 
 const args = process.argv.slice(2);
 const rootDir = process.cwd();
@@ -46,7 +49,7 @@ const getVersionFromPkgInfo = () => {
  *
  * 如果没有脚本参数，会默认使用 engines 的设置作为目标版本
  */
-const getTargetVersion = () => {
+const detectedNodeVersionIfMatch = () => {
   getVersionFromPkgInfo();
   getVersionFromArgs();
   if (!targetVersion) {
@@ -75,40 +78,12 @@ const compareCurrentAndTarget = () => {
   console.log(chalk.green("当前 node 版本与目标 node 版本一致"));
   process.exit(0);
 };
-getTargetVersion();
-const {
-    PKG_MANAGER_NPM,
-    PKG_MANAGER_YARN,
-    PKG_MANAGER_PNPM,
-    existLockFile
-  } = require("./pmlist");
-/**
- * @description 检查当前命令实现的包管理器，目前包含了 npm、yarn、pnpm 三种
- * 注意：如果项目之前是通过 pnpm 管理的，因为pnpm本身支持包管理器的判断，因此可以忽略包管理器的检查功能
- */
-const detectedWhichPMInuse = async () => {
-  let pkgManager = "";
-  if (pkgInfo.packageManager) {
-    pkgManager = [PKG_MANAGER_NPM, PKG_MANAGER_YARN, PKG_MANAGER_PNPM].find(pm => pkgInfo.packageManager.startsWith(pm));
-  }
-  if (await existLockFile('package-lock.json')) {
-    pkgManager = PKG_MANAGER_NPM;
-  }
-  if (await existLockFile('yarn.lock')) {
-    pkgManager = PKG_MANAGER_YARN;
-  }
-  if (await existLockFile('pnpm-lock.yaml')) {
-    pkgManager = PKG_MANAGER_PNPM;
-  }
+detectedNodeVersionIfMatch();
 
-  const current_exec_pm = process.env.npm_execpath;
-  if (!pkgManager || current_exec_pm.indexOf(pkgManager) > -1) {
-    process.exit(0);
-  } else {
-    console.log(chalk.red('当前运行的包管理器和项目使用的包管理器不一致'));
-    console.log("项目使用的包管理器: ",  chalk.yellow(pkgManager));
-    process.exit(1);
-  }
-};
+// 默认开启 包管理器 验证，想要关闭，enable-pm-verify false
+const enablePmVerify = hasCommand(commandList["enable-pm-verify"])
+if (validCommandArgument(commandList["enable-pm-verify"], enablePmVerify)) {
+  detectedWhichPMInuse();
+}
 
-detectedWhichPMInuse();
+

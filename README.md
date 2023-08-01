@@ -55,4 +55,8 @@ m-nover 获取目标 node 版本的来源有两个：package.json 中的 [engine
 ```
 目标 node 版本 会使用 18 作为实际的 node 版本。如果没有脚本参数，会默认使用 engines 的设置作为目标版本
 
+## 目标 node 版本支持 semver 
+
 ## 关于 [engine-strict](https://docs.npmjs.com/cli/v6/using-npm/config?v=true#engine-strict)
+
+## 关于包管理器的判断逻辑
