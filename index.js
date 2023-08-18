@@ -81,7 +81,7 @@ const compareCurrentAndTarget = () => {
 detectedNodeVersionIfMatch();
 
 // 默认开启 包管理器 验证，想要关闭，enable-pm-verify false
-const enablePmVerify = hasCommand(commandList["enable-pm-verify"])
+const enablePmVerify = hasCommand(commandList["enable-pm-verify"], args);
 if (validCommandArgument(commandList["enable-pm-verify"], enablePmVerify)) {
   detectedWhichPMInuse();
 }

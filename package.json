@@ -3,12 +3,11 @@
   "version": "1.0.1",
   "description": "校验执行命令时的node版本和项目实际使用的node版本是否一致，同时提供包管理器检测的能力",
   "keywords": [
-    "node version confirm",
-    "packageManager confirm",
-    "npm confirm",
+    "node version inspect",
+    "packageManager inspect",
+    "npm inspect",
     "m-nover"
   ],
-  "main": "index.js",
   "bin": {
     "m-nover": "index.js"
   },
@@ -28,6 +27,9 @@
   },
   "files": [
     "index.js",
-    "pmlist.js"
+    "pmlist.js",
+    "validate_pm.js",
+    "utils",
+    "*.md"
   ]
 }
