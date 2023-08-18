@@ -1,6 +1,6 @@
 {
   "name": "m-nover",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "一个简单的用于验证 `node` 版本 和 包管理器(`npm、yarn`)是否符合期望的命令工具",
   "keywords": [
     "node version inspect",
