@@ -3,12 +3,12 @@ const path = require("path");
 const PKG_MANAGER_NPM = "npm";
 const PKG_MANAGER_YARN = "yarn";
 const PKG_MANAGER_PNPM = "pnpm";
-
+const rootDir = process.cwd();
 const existLockFile = (lockType) => {
   try {
     fs.statSync(path.join(rootDir, lockType));
     return true;
-  } finally {
+  } catch {
     return false;
   }
 }

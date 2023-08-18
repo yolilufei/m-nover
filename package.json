@@ -1,7 +1,7 @@
 {
   "name": "m-nover",
   "version": "1.0.2",
-  "description": "校验执行命令时的node版本和项目实际使用的node版本是否一致，同时提供包管理器检测的能力",
+  "description": "一个简单的用于验证 `node` 版本 和 包管理器(`npm、yarn`)是否符合期望的命令工具",
   "keywords": [
     "node version inspect",
     "packageManager inspect",
@@ -16,7 +16,8 @@
     "test:exact-argument": "node index.js -t 12 && npm info node versions",
     "test:semver-argument": "node index.js -t ~19.1 && npm info node versions",
     "test:pm": "node index.js target=~14",
-    "test:pm-disable": "node index.js target=~14 en-pm=false"
+    "test:pm-disable": "node index.js target=~14 en-pm=false",
+    "start": "m-nover target=14 && yarn info node versions"
   },
   "author": "guoshi11",
   "homepage": "https://github.com/yolilufei/node-version-validate.git",
