@@ -1,9 +1,13 @@
 const commandList = require("./commandList");
 
 const hasCommand = (command, commandArgs = []) => {
-    const matched = commandArgs.filter(c => c === command);
+    const matched = commandArgs.filter(c => c.includes(command));
     if(matched.length) {
-        return matched[0].split('=');
+        if (matched[0] === '-t') {
+            const ret = commandArgs.indexOf(command) + 1;
+            return commandArgs[ret];
+        }
+        return matched[0].split('=')[1];
     }
     return false;
 }

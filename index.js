@@ -9,21 +9,12 @@ const { validCommandArgument, hasCommand } = require("./utils/hasCommand");
 
 const args = process.argv.slice(2);
 const rootDir = process.cwd();
-let targetVersion;
 
 const pkgInfo = require(path.join(rootDir, "package.json"));
 
-/**
- * @description 只获取第一个脚本参数，默认第一个参数即是 node version
- *
- *  例如：m-nover -t ^18 ~16 只会获取 18 作为目标参数
- *
- * 参数可以是任意符合规范的 semantic version, 可以参考 @link https://github.com/npm/node-semver#versions
- */
-const getVersionFromArgs = () => {
-  if (args.length > 1) {
-    targetVersion = args[1];
-  }
+const argumentsMapping = {
+  targetNode: null,
+  verifyPM: null
 };
 
 /**
@@ -32,10 +23,26 @@ const getVersionFromArgs = () => {
  * 关于 engines 的使用，参考 @link https://docs.npmjs.com/cli/v9/configuring-npm/package-json#engines
  */
 const getVersionFromPkgInfo = () => {
-  if (pkgInfo.engines && pkgInfo.engines.node) {
-    targetVersion = pkgInfo.engines.node;
+  if (pkgInfo.engines) {
+    argumentsMapping.targetNode = pkgInfo.engines.node;
   }
 };
+
+const parseArguments = () => {
+  // get from package.json
+  getVersionFromPkgInfo();
+  // get from arguments
+  const commandArgTarget = hasCommand(commandList['-t'], args) || hasCommand(commandList['target'], args);
+  if (commandArgTarget) {
+    argumentsMapping.targetNode = commandArgTarget;
+  }
+
+  const commandArgPM = hasCommand(commandList['en-pm'], args) || hasCommand(commandList['enable-pm-verify'], args);
+  if (commandArgPM) {
+    argumentsMapping.verifyPM = commandArgPM;
+  }
+}
+
 /**
  * @description 获取 target node version 信息，有两个来源：package.json 中的 engines 和 脚本参数(arguments)
  *
@@ -50,10 +57,8 @@ const getVersionFromPkgInfo = () => {
  * 如果没有脚本参数，会默认使用 engines 的设置作为目标版本
  */
 const detectedNodeVersionIfMatch = () => {
-  getVersionFromPkgInfo();
-  getVersionFromArgs();
-  if (!targetVersion) {
-    console.log(chalk.red(`未获取目标版本信息，请参考 README.md 设置`));
+  if (!argumentsMapping.targetNode) {
+    console.log(chalk.red(`未获取目标 node 版本信息，请参考 README.md 设置`));
     process.exit(1);
   }
   compareCurrentAndTarget();
@@ -61,7 +66,7 @@ const detectedNodeVersionIfMatch = () => {
 
 const compareCurrentAndTarget = () => {
   const current = process.versions.node;
-  const range = semver.validRange(targetVersion);
+  const range = semver.validRange(argumentsMapping.targetNode);
   if (!range) {
     console.log(chalk.red(`目标版本信息设置错误，请参考 README.md 设置`));
     process.exit(1);
@@ -76,14 +81,18 @@ const compareCurrentAndTarget = () => {
     process.exit(1);
   }
   console.log(chalk.green("当前 node 版本与目标 node 版本一致"));
-  process.exit(0);
 };
+
+parseArguments();
+
+
 detectedNodeVersionIfMatch();
 
 // 默认开启 包管理器 验证，想要关闭，enable-pm-verify false
-const enablePmVerify = hasCommand(commandList["enable-pm-verify"], args);
-if (validCommandArgument(commandList["enable-pm-verify"], enablePmVerify)) {
-  detectedWhichPMInuse();
+if (!argumentsMapping.verifyPM || argumentsMapping.verifyPM === 'true') {
+  detectedWhichPMInuse(pkgInfo);
 }
+
+process.exit(0);
 
 

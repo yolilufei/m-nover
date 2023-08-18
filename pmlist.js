@@ -4,9 +4,9 @@ const PKG_MANAGER_NPM = "npm";
 const PKG_MANAGER_YARN = "yarn";
 const PKG_MANAGER_PNPM = "pnpm";
 
-const existLockFile = async (lockType) => {
+const existLockFile = (lockType) => {
   try {
-    await fs.promises.stat(path.join(rootDir, lockType));
+    fs.statSync(path.join(rootDir, lockType));
     return true;
   } finally {
     return false;

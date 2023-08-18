@@ -15,7 +15,8 @@
     "test:no-argument": "node index.js && npm info node versions",
     "test:exact-argument": "node index.js -t 12 && npm info node versions",
     "test:semver-argument": "node index.js -t ~19.1 && npm info node versions",
-    "test:pm": "node index.js"
+    "test:pm": "node index.js target=~14",
+    "test:pm-disable": "node index.js target=~14 en-pm=false"
   },
   "author": "guoshi11",
   "homepage": "https://github.com/yolilufei/node-version-validate.git",
